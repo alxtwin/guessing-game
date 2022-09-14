@@ -3,6 +3,9 @@ from random import randint, choice
 
 #Armazena o número de tentativas; precisa ser otimizada para abarcar outros jogadores
 tentativas = []
+global tentativa
+tentativa = 0
+
 
 #Essa função armazena "ofensas" do desafiante Billy the Kid ao jogador cada vez que ele erra 
 ofensas = ['Seus olhos estão cansados, caubói?! Você errou!',
@@ -37,50 +40,81 @@ def apresentacao():
     print(f"Bem vindo à cidade, caubói {nome_jogador}. Gostaria de me desafiar?")
     print()
 
+def fora_do_alvo():
+    print("(você não pode atirar fora do alvo)")
+    print()
+    
+def acertou():
+    print("Na mosca, caubói!")
+    global tentativa
+    tentativa+=1
+    tentativas.append(tentativa)
+    # print(f'Você acertou em {tentativa} tentativas.')
+    
+def mais_baixo():
+    print(choice(ofensas),"Mire mais baixo!")
+    print()
+    global tentativa
+    tentativa+=1
+    tentativas.append(tentativa)
+    
+def mais_alto():
+    print(choice(ofensas),"Mire mais alto!")
+    print()
+    global tentativa
+
+    tentativa+=1
+    tentativas.append(tentativa)
+
 #Nessa função estão contidos todos os comandos do jogo 
 def start_jogo():
     numero_gerado = randint(1, 10)    
-    tentativa = 0
-    print("digite sim ou não.")
+    print("(digite sim ou não)")
     escolha = input()
    
     while escolha.lower() == 'sim':
+        print()
         print("Atire no número que eu estou pensando!")
         print('(digite um número de 1 a 10)')
         try:
           
             tiro = int(input())
             
-            if tiro != numero_gerado:
-                print(choice(ofensas))
-                tentativa +=1
-                print()
+            # if tiro != numero_gerado:
+            #     print(choice(ofensas))
+            #     tentativa +=1
+            #     print()
             
             if tiro < 1 or tiro > 10:
-                print("Você não pode atirar fora do alvo!")
+                # print("Você não pode atirar fora do alvo!")
+                fora_do_alvo()
                 
             if int(tiro) == numero_gerado:
-                print("Na mosca, caubói!")
-                tentativa+=1
-                tentativas.append(tentativa)
+                acertou()     
+                # print("Na mosca, caubói!")
+                # tentativa+=1
+                # tentativas.append(tentativa)
                 # print(f'Você acertou em {tentativa} tentativas.')
                 break
+            
             elif tiro > numero_gerado:
-                print("Mais para baixo, caubói!")
-                print()
-                tentativa +=1
-                tentativas.append(tentativa)
+               mais_baixo()
                 
             elif tiro < numero_gerado:
-                print("Mais para cima, caubói!")
-                print()
-                tentativa+=1
-                tentativas.append(tentativa)
+                mais_alto()
+                # print(choice(ofensas),"Mire mais alto!")
+                # print()
+                # tentativa+=1
+                # tentativas.append(tentativa)
                 
         except ValueError:
-            print("Você não pode atirar fora do alvo!")
+            print("(você não pode atirar fora do alvo)")
             print()
             continue
+    if escolha.lower() != 'sim' and escolha.lower() != 'não' and escolha.lower() != 'nao':
+        print()
+        print('Não entendi porcaria nenhuma!')
+        start_jogo()
     else:
         print()
         print("Eu sabia que essa cidade era pequena demais para nós dois...")
