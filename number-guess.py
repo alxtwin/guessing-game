@@ -1,15 +1,17 @@
 from multiprocessing.sharedctypes import Value
 from random import randint, choice
 
-
+#Armazena o número de tentativas; precisa ser otimizada para abarcar outros jogadores
 tentativas = []
 
+#Essa função armazena "ofensas" do desafiante Billy the Kid ao jogador cada vez que ele erra 
 ofensas = ['Seus olhos estão cansados, caubói?! Você errou!',
            'Há! Minha vó atira melhor que você. Tente outra vez!',
            'Vou te dar uma colher de chá, caubói. Tente novamente!',
            'Tente outra vez, pistoleiro míope!',
            ]
 
+#Essa função checa o placar. Precisa ser otimizada para abarcar outros jogadores
 def check_placar():
     if len(tentativas) <= 0:
         print("Você não teve nenhuma tentativa. :(")
@@ -21,7 +23,7 @@ def check_placar():
         print("a rapidez do seu gatilho é de {} tentativas.".format(len(tentativas)))
         print()
     
-
+#Essa função guarda o texto de apresentação do jogo
 def apresentacao():
     print()
     print("Bem vindo ao jogo de adivinhação, forasteiro.")
@@ -34,20 +36,19 @@ def apresentacao():
     print()
     print(f"Bem vindo à cidade, caubói {nome_jogador}. Gostaria de me desafiar?")
     print()
-    
+
+#Nessa função estão contidos todos os comandos do jogo 
 def start_jogo():
     numero_gerado = randint(1, 10)    
     tentativa = 0
     print("digite sim ou não.")
     escolha = input()
    
-    
     while escolha.lower() == 'sim':
         print("Atire no número que eu estou pensando!")
         print('(digite um número de 1 a 10)')
         try:
           
-            
             tiro = int(input())
             
             if tiro != numero_gerado:
@@ -95,8 +96,10 @@ def start_jogo():
         print("Até a próxima!")
 
 
-apresentacao()
-start_jogo()
+if __name__ == '__main__':
+
+    apresentacao()
+    start_jogo()
 
             
     
