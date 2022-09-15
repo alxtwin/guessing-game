@@ -1,7 +1,8 @@
 # from multiprocessing.sharedctypes import Value
 from random import randint, choice
 
-# Armazena o número de tentativas; precisa ser otimizada para abarcar outros jogadores
+#code
+#Armazena o número de tentativas; precisa ser otimizada para abarcar outros jogadores
 tentativas = []
 global tentativa
 tentativa = 0
@@ -145,3 +146,7 @@ if __name__ == '__main__':
 
     apresentacao()
     start_jogo()
+
+            
+    
+        
