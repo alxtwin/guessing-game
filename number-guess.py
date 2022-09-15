@@ -1,20 +1,22 @@
-from multiprocessing.sharedctypes import Value
+# from multiprocessing.sharedctypes import Value
 from random import randint, choice
 
-#Armazena o número de tentativas; precisa ser otimizada para abarcar outros jogadores
+# Armazena o número de tentativas; precisa ser otimizada para abarcar outros jogadores
 tentativas = []
 global tentativa
 tentativa = 0
 
 
-#Essa função armazena "ofensas" do desafiante Billy the Kid ao jogador cada vez que ele erra 
+# Essa função armazena "ofensas" do desafiante Billy the Kid ao jogador cada vez que ele erra
 ofensas = ['Seus olhos estão cansados, caubói?! Você errou!',
            'Há! Minha vó atira melhor que você. Tente outra vez!',
            'Vou te dar uma colher de chá, caubói. Tente novamente!',
            'Tente outra vez, pistoleiro míope!',
            ]
 
-#Essa função checa o placar. Precisa ser otimizada para abarcar outros jogadores
+# Essa função checa o placar. Precisa ser otimizada para abarcar outros jogadores
+
+
 def check_placar():
     if len(tentativas) <= 0:
         print("Você não teve nenhuma tentativa. :(")
@@ -25,8 +27,10 @@ def check_placar():
         print()
         print("a rapidez do seu gatilho é de {} tentativas.".format(len(tentativas)))
         print()
-    
-#Essa função guarda o texto de apresentação do jogo
+
+# Essa função guarda o texto de apresentação do jogo
+
+
 def apresentacao():
     print()
     print("Bem vindo ao jogo de adivinhação, forasteiro.")
@@ -37,76 +41,83 @@ def apresentacao():
     print()
     nome_jogador = input('Qual é o seu nome?: ')
     print()
-    print(f"Bem vindo à cidade, caubói {nome_jogador}. Gostaria de me desafiar?")
+    print(
+        f"Bem vindo à cidade, caubói {nome_jogador}. Gostaria de me desafiar?")
     print()
+
 
 def fora_do_alvo():
     print("(você não pode atirar fora do alvo)")
     print()
-    
+
+
 def acertou():
     print("Na mosca, caubói!")
     global tentativa
-    tentativa+=1
+    tentativa += 1
     tentativas.append(tentativa)
     # print(f'Você acertou em {tentativa} tentativas.')
-    
+
+
 def mais_baixo():
-    print(choice(ofensas),"Mire mais baixo!")
+    print(choice(ofensas), "Mire mais baixo!")
     print()
     global tentativa
-    tentativa+=1
+    tentativa += 1
     tentativas.append(tentativa)
-    
+
+
 def mais_alto():
-    print(choice(ofensas),"Mire mais alto!")
+    print(choice(ofensas), "Mire mais alto!")
     print()
     global tentativa
 
-    tentativa+=1
+    tentativa += 1
     tentativas.append(tentativa)
 
-#Nessa função estão contidos todos os comandos do jogo 
+# Nessa função estão contidos todos os comandos do jogo
+
+
 def start_jogo():
-    numero_gerado = randint(1, 10)    
+    numero_gerado = randint(1, 10)
     print("(digite sim ou não)")
     escolha = input()
-   
+
     while escolha.lower() == 'sim':
         print()
         print("Atire no número que eu estou pensando!")
         print('(digite um número de 1 a 10)')
         try:
-          
+
             tiro = int(input())
-            
+
             # if tiro != numero_gerado:
             #     print(choice(ofensas))
             #     tentativa +=1
             #     print()
-            
+
             if tiro < 1 or tiro > 10:
                 # print("Você não pode atirar fora do alvo!")
                 fora_do_alvo()
-                
+
             if int(tiro) == numero_gerado:
-                acertou()     
+                acertou()
                 # print("Na mosca, caubói!")
                 # tentativa+=1
                 # tentativas.append(tentativa)
                 # print(f'Você acertou em {tentativa} tentativas.')
                 break
-            
+
             elif tiro > numero_gerado:
-               mais_baixo()
-                
+                mais_baixo()
+
             elif tiro < numero_gerado:
                 mais_alto()
                 # print(choice(ofensas),"Mire mais alto!")
                 # print()
                 # tentativa+=1
                 # tentativas.append(tentativa)
-                
+
         except ValueError:
             print("(você não pode atirar fora do alvo)")
             print()
@@ -121,7 +132,7 @@ def start_jogo():
         check_placar()
         print()
         quit()
-        
+
     check_placar()
     try:
         print("Gostaria de jogar novamente?")
@@ -134,7 +145,3 @@ if __name__ == '__main__':
 
     apresentacao()
     start_jogo()
-
-            
-    
-        
